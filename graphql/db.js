@@ -16,8 +16,19 @@ export const getMovies = (limit, rating) => {
 };
 
 export const getMovie = id => {
-  let REQUEST_URL = API_URL;
+  const REQUEST_URL = API_URL;
   return fetch(`${REQUEST_URL}`)
     .then(res => res.json())
     .then(json => json.data.movies.find(movie => movie.id === id));
+};
+
+export const getSuggestions = id => {
+  const REQUEST_URL = API_URL;
+  return fetch(`${REQUEST_URL}`)
+    .then(res => res.json())
+    .then(json =>
+      json.data.movies.filter(
+        movie => id !== movie.id && id - 2 < movie.id && movie.id < id + 2
+      )
+    );
 };
